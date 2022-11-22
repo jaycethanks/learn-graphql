@@ -3,45 +3,17 @@ var { graphqlHTTP } = require('express-graphql');
 var { buildSchema } = require('graphql');
 
 var schema = buildSchema(`
- type Name {
-   firstName: String,
-   lastName: String
- }
- type User {
-   name: Name
-   age: Int
-   gender: Int
- }
-  type Query {
-    hello: String
-    account: String
-    age:Int
-   users: [User]
-  }
-`);
+    type Query {
+      getClassMates(classNo: Int!):[String]
+    }
+  `);
 var root = {
-  hello: () => 'Hello world!',
-  account: () => 'jayce@outlook.com',
-  age: () => 18,
-  users: () => {
-    return [
-      {
-        name: {
-          firstName: 'jayce',
-          lastName: 'sun',
-        },
-        age: 18,
-        gender: 1,
-      },
-      {
-        name: {
-          firstName: 'Lisa',
-          lastName: 'Wang',
-        },
-        age: 17,
-        gender: 0,
-      },
-    ];
+  getClassMates({ classNo }) {
+    const obj = {
+      31: ['张三', '李四', '王五'],
+      61: ['张大三', '李大四', '王大五'],
+    };
+    return obj[classNo];
   },
 };
 
